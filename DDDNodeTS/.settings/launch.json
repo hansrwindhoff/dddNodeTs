@@ -24,7 +24,8 @@
 		{
 			"name": "Attach ub",
 			"type": "node",
-			"program": "app.js",
+			"stopOnEntry": true,
+			"cwd": ".",
 			// TCP/IP address. Default is "localhost".
 			//"address": "localhost",
 			"address": "192.128.28.101",
