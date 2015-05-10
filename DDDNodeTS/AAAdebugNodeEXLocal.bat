@@ -6,6 +6,5 @@ start cmd /k  "node --debug-brk app.js"
 
 start "" /D"." node-inspector --web-port=8090
 start chrome /new-window http://127.0.0.1:8090/debug?ws=127.0.0.1:8090&port=5858
-rem echo wait for debugger to connect
-rem pause
+
 start chrome /new-window http://127.0.0.1:3000
