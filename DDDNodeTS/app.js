@@ -6,6 +6,7 @@ var http = require('http');
 var path = require('path');
 var routes = require('./routes/index');
 var app = express();
+// all environments
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -18,6 +19,7 @@ app.use(app.router);
 var stylus = require('stylus');
 app.use(stylus.middleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
+// development only
 if ('development' == app.get('env')) {
     app.use(express.errorHandler());
 }
