@@ -1,0 +1,17 @@
+{
+  "name": "DDDNodeTS",
+  "version": "0.0.0",
+  "description": "DDDNodeTS",
+  "main": "app.js",
+  "author": {
+    "name": "hansw",
+    "email": ""
+  },
+  "dependencies": {
+    "express": "3.4.4",
+    "jade": "*",
+    "stylus": "*",
+    "node-inspector": "*"
+
+  }
+}
