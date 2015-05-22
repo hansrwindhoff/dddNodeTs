@@ -18,14 +18,25 @@ exports.contact = contact;
 var hp2 = require("htmlparser2");
 function getUrlText(req, res) {
     var targetPage = "http://en.wikipedia.org/wiki/Sahara";
+    targetPage = "http://www.mediawiki.org/w/index.php?title=Project:General_disclaimer&action=info";
+    targetPage = "/test.html";
     var currentTag = "";
-    var alltext = ";";
+    var indenter = [];
+    var alltext = "";
     var lengthTextTransfered = 0;
     var tagsToExclude = ["script", "link", "style", "pre"];
     var parser = new hp2.Parser({
         onerror: function () { return console.log("parser error hit"); },
-        onopentag: function (tname) { return currentTag = tname; },
-        onclosetag: function () { return currentTag = ""; },
+        onopentag: function (tname) {
+            currentTag = tname;
+            indenter.push("=>");
+            console.log(indenter.join("") + "open  " + currentTag);
+        },
+        onclosetag: function (tname) {
+            console.log(indenter.join("") + "close " + tname);
+            indenter.pop();
+            currentTag = currentTag ? currentTag : ""; // fuse
+        },
         ontext: function (textchunk) {
             if (tagsToExclude.indexOf(currentTag) < 0) {
                 if (textchunk && textchunk.length > 0) {
@@ -36,13 +47,14 @@ function getUrlText(req, res) {
         },
         onend: function () {
             res.render("urlText", { title: "text content of " + targetPage, urltext: alltext });
+            console.log("finished, stack is at " + indenter.length);
         }
     });
     http.get(targetPage, (function (p) { return function (resi) {
         resi.pipe(p); // stream to the html parser
-    }; })(parser)).on("error", function (err) {
+    }; })(parser))
+        .on("error", function (err) {
         console.log("This URL is invalid");
     });
 }
 exports.getUrlText = getUrlText;
-//# sourceMappingURL=index.js.map

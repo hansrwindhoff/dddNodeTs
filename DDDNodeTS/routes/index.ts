@@ -25,21 +25,33 @@ export function contact(req: express.Request, res: express.Response) {
 
 
 import hp2 = require("htmlparser2");
+
 export function getUrlText(req: express.Request, res: express.Response) {
     var targetPage = "http://en.wikipedia.org/wiki/Sahara";
-    var currentTag = "";
-    var alltext = ";"
+    targetPage = "http://www.mediawiki.org/w/index.php?title=Project:General_disclaimer&action=info";
+    targetPage = "/test.html";
+    var currentTag = "";    
+    var indenter = <string[]>[];
+    var alltext = ""
     var lengthTextTransfered = 0;
     var tagsToExclude = ["script", "link", "style", "pre"];
+    
 
     var parser = new hp2.Parser(<hp2.Handler>{
         onerror: () => console.log("parser error hit"),
-        onopentag: tname => currentTag = tname,  // track which tag we are in
-        onclosetag: () => currentTag = "",
+        onopentag: tname => {
+            currentTag = tname;
+            indenter.push("=>");
+            console.log(indenter.join("") + "open  " + currentTag );
+        }, // track which tag we are in
+        onclosetag: (tname) => {
+            console.log(indenter.join("") + "close " + tname);
+            indenter.pop();
+            currentTag = currentTag ? currentTag : "";// fuse
+    
+        },
         ontext: (textchunk: string) => {
             if (tagsToExclude.indexOf(currentTag) < 0) {
-                
-                
                 if (textchunk && textchunk.length > 0) {
                     lengthTextTransfered += textchunk.length;
                     alltext += textchunk;
@@ -49,6 +61,7 @@ export function getUrlText(req: express.Request, res: express.Response) {
         },
         onend: () => {
             res.render("urlText", { title: "text content of " + targetPage, urltext: alltext });
+            console.log("finished stack is at " + indenter.length);
         }
     });
 
