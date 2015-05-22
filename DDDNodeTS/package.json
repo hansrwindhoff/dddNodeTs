@@ -8,10 +8,11 @@
     "email": ""
   },
   "dependencies": {
+    "debug": "^2.2.0",
     "express": "3.4.4",
+    "htmlparser2": "^3.8.2",
     "jade": "*",
-    "stylus": "*",
-    "node-inspector": "*"
-
+    "source-map": "^0.4.2",
+    "stylus": "*"
   }
 }

@@ -1,20 +1,62 @@
 ﻿/// <reference path="../Scripts/typings/express/express.d.ts" />
 /// <reference path="../Scripts/typings/node/node.d.ts" />
 /// <reference path="../Scripts/typings/stylus/stylus.d.ts" />
+/// <reference path="../Scripts/typings/htmlparser2/htmlparser2.d.ts" />
 
-/*
- * GET home page.
- */
-import express = require('express');
+
+
+import http = require("http");
+import express = require("express");
+
 
 export function index(req: express.Request, res: express.Response) {
-    res.render('index', { title: 'DDD Node TS Express', year: new Date().getFullYear() });
+    res.render("index", { title: "DDD Node TS Express 06/05", year: new Date().getFullYear() });
 }
 
 export function about(req: express.Request, res: express.Response) {
-    res.render('about', { title: 'About', year: new Date().getFullYear(), message: 'Your application description page.' });
+    res.render("about", { title: "About", year: new Date().getFullYear(), message: "Your node application description page." });
 }
 
 export function contact(req: express.Request, res: express.Response) {
-    res.render('contact', { title: 'Contact', year: new Date().getFullYear(), message: 'Your contact page.' });
+    res.render("contact", { title: "Contact", year: new Date().getFullYear(), message: "Your contact page." });
+}
+
+
+
+
+import hp2 = require("htmlparser2");
+export function getUrlText(req: express.Request, res: express.Response) {
+    var targetPage = "http://en.wikipedia.org/wiki/Sahara";
+    var currentTag = "";
+    var alltext = ";"
+    var lengthTextTransfered = 0;
+    var tagsToExclude = ["script", "link", "style", "pre"];
+
+    var parser = new hp2.Parser(<hp2.Handler>{
+        onerror: () => console.log("parser error hit"),
+        onopentag: tname => currentTag = tname,  // track which tag we are in
+        onclosetag: () => currentTag = "",
+        ontext: (textchunk: string) => {
+            if (tagsToExclude.indexOf(currentTag) < 0) {
+                
+                
+                if (textchunk && textchunk.length > 0) {
+                    lengthTextTransfered += textchunk.length;
+                    alltext += textchunk;
+                    //  res.write(temptext + " ");
+                }
+            }
+        },
+        onend: () => {
+            res.render("urlText", { title: "text content of " + targetPage, urltext: alltext });
+        }
+    });
+
+    http.get(targetPage,
+        ((p: hp2.Parser) => (resi: any) => {
+            resi.pipe(p);// stream to the html parser
+        })(parser))
+        .on("error", (err) => {
+        console.log("This URL is invalid");
+    });
 }
