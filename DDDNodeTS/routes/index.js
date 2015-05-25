@@ -18,8 +18,8 @@ exports.contact = contact;
 var hp2 = require("htmlparser2");
 function getUrlText(req, res) {
     var targetPage = "http://en.wikipedia.org/wiki/Sahara";
-    targetPage = "http://www.mediawiki.org/w/index.php?title=Project:General_disclaimer&action=info";
-    targetPage = "/test.html";
+    //targetPage = "http://www.mediawiki.org/w/index.php?title=Project:General_disclaimer&action=info";
+    //targetPage = "/test.html";
     var currentTag = "";
     var indenter = [];
     var alltext = "";
@@ -41,13 +41,15 @@ function getUrlText(req, res) {
             if (tagsToExclude.indexOf(currentTag) < 0) {
                 if (textchunk && textchunk.length > 0) {
                     lengthTextTransfered += textchunk.length;
-                    alltext += textchunk;
+                    //alltext += textchunk;
+                    res.write(textchunk + " ");
                 }
             }
         },
         onend: function () {
-            res.render("urlText", { title: "text content of " + targetPage, urltext: alltext });
-            console.log("finished, stack is at " + indenter.length);
+            //res.render("urlText", { title: "text content of " + targetPage, urltext: alltext });
+            res.end();
+            console.log("finished stack is at " + indenter.length);
         }
     });
     http.get(targetPage, (function (p) { return function (resi) {
@@ -58,3 +60,4 @@ function getUrlText(req, res) {
     });
 }
 exports.getUrlText = getUrlText;
+//# sourceMappingURL=index.js.map

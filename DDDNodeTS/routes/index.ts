@@ -28,8 +28,8 @@ import hp2 = require("htmlparser2");
 
 export function getUrlText(req: express.Request, res: express.Response) {
     var targetPage = "http://en.wikipedia.org/wiki/Sahara";
-    targetPage = "http://www.mediawiki.org/w/index.php?title=Project:General_disclaimer&action=info";
-    targetPage = "/test.html";
+    //targetPage = "http://www.mediawiki.org/w/index.php?title=Project:General_disclaimer&action=info";
+    //targetPage = "/test.html";
     var currentTag = "";    
     var indenter = <string[]>[];
     var alltext = ""
@@ -54,13 +54,14 @@ export function getUrlText(req: express.Request, res: express.Response) {
             if (tagsToExclude.indexOf(currentTag) < 0) {
                 if (textchunk && textchunk.length > 0) {
                     lengthTextTransfered += textchunk.length;
-                    alltext += textchunk;
-                    //  res.write(temptext + " ");
+                    //alltext += textchunk;
+                    res.write(textchunk + " ");
                 }
             }
         },
         onend: () => {
-            res.render("urlText", { title: "text content of " + targetPage, urltext: alltext });
+            //res.render("urlText", { title: "text content of " + targetPage, urltext: alltext });
+          res.end();
             console.log("finished stack is at " + indenter.length);
         }
     });
