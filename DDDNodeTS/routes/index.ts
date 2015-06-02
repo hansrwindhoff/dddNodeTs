@@ -28,9 +28,9 @@ import hp2 = require("htmlparser2");
 
 export function getUrlText(req: express.Request, res: express.Response) {
   var
-    //targetPage = "http://en.wikipedia.org/wiki/Sahara"; 
+    targetPage = "http://en.wikipedia.org/wiki/Sahara"; 
     //targetPage = "http://www.mediawiki.org/w/index.php?title=Project:General_disclaimer&action=info";
-    targetPage = "~/github/dddNodeTs/DDDNodeTS/test.html";
+    //targetPage = "./test.html";
     var currentTag = "";    
     var indenter = <string[]>[];
     var alltext = ""
