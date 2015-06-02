@@ -17,9 +17,10 @@ function contact(req, res) {
 exports.contact = contact;
 var hp2 = require("htmlparser2");
 function getUrlText(req, res) {
-    var targetPage = "http://en.wikipedia.org/wiki/Sahara";
+    var 
+    //targetPage = "http://en.wikipedia.org/wiki/Sahara";
     //targetPage = "http://www.mediawiki.org/w/index.php?title=Project:General_disclaimer&action=info";
-    //targetPage = "/test.html";
+    targetPage = "/test.html";
     var currentTag = "";
     var indenter = [];
     var alltext = "";
@@ -54,8 +55,7 @@ function getUrlText(req, res) {
     });
     http.get(targetPage, (function (p) { return function (resi) {
         resi.pipe(p); // stream to the html parser
-    }; })(parser))
-        .on("error", function (err) {
+    }; })(parser)).on("error", function (err) {
         console.log("This URL is invalid");
     });
 }

@@ -27,9 +27,10 @@ export function contact(req: express.Request, res: express.Response) {
 import hp2 = require("htmlparser2");
 
 export function getUrlText(req: express.Request, res: express.Response) {
-    var targetPage = "http://en.wikipedia.org/wiki/Sahara";
+  var
+    //targetPage = "http://en.wikipedia.org/wiki/Sahara";
     //targetPage = "http://www.mediawiki.org/w/index.php?title=Project:General_disclaimer&action=info";
-    //targetPage = "/test.html";
+    targetPage = "/test.html";
     var currentTag = "";    
     var indenter = <string[]>[];
     var alltext = ""
