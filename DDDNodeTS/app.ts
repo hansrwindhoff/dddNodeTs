@@ -1,6 +1,6 @@
-﻿/// <reference path="Scripts/typings/node/node.d.ts" />
-/// <reference path="Scripts/typings/express/express.d.ts" />
-/// <reference path="Scripts/typings/stylus/stylus.d.ts" />
+﻿/// <reference path="typings/node/node.d.ts" />
+/// <reference path="typings/express/express.d.ts" />
+/// <reference path="typings/stylus/stylus.d.ts" />
 
 import express = require('express');
 import http = require('http');

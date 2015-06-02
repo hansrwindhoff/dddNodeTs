@@ -15,10 +15,11 @@
         "!./node_modules/**/*.ts"
     ],
     "files": [
-        "./Scripts/typings/express/express.d.ts",
-        "./Scripts/typings/node/node.d.ts",
-        "./Scripts/typings/stylus/stylus.d.ts",
         "./app.ts",
-        "./routes/index.ts"
+        "./routes/index.ts",
+        "./typings/express/express.d.ts",
+        "./typings/htmlparser2/htmlparser2.d.ts",
+        "./typings/node/node.d.ts",
+        "./typings/stylus/stylus.d.ts"
     ]
 }

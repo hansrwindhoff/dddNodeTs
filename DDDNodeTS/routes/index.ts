@@ -1,7 +1,7 @@
-﻿/// <reference path="../Scripts/typings/express/express.d.ts" />
-/// <reference path="../Scripts/typings/node/node.d.ts" />
-/// <reference path="../Scripts/typings/stylus/stylus.d.ts" />
-/// <reference path="../Scripts/typings/htmlparser2/htmlparser2.d.ts" />
+﻿/// <reference path="../typings/express/express.d.ts" />
+/// <reference path="../typings/node/node.d.ts" />
+/// <reference path="../typings/stylus/stylus.d.ts" />
+/// <reference path="../typings/htmlparser2/htmlparser2.d.ts" />
 
 
 
@@ -28,15 +28,15 @@ import hp2 = require("htmlparser2");
 
 export function getUrlText(req: express.Request, res: express.Response) {
   var
-    targetPage = "http://en.wikipedia.org/wiki/Sahara"; 
+    targetPage = "http://en.wikipedia.org/wiki/Sahara";
     //targetPage = "http://www.mediawiki.org/w/index.php?title=Project:General_disclaimer&action=info";
     //targetPage = "./test.html";
-    var currentTag = "";    
+    var currentTag = "";
     var indenter = <string[]>[];
     var alltext = ""
     var lengthTextTransfered = 0;
     var tagsToExclude = ["script", "link", "style", "pre"];
-    
+
 
     var parser = new hp2.Parser(<hp2.Handler>{
         onerror: () => console.log("parser error hit"),
@@ -49,7 +49,7 @@ export function getUrlText(req: express.Request, res: express.Response) {
             console.log(indenter.join("") + "close " + tname);
             indenter.pop();
             currentTag = currentTag ? currentTag : "";// fuse
-    
+
         },
         ontext: (textchunk: string) => {
             if (tagsToExclude.indexOf(currentTag) < 0) {
