@@ -20,7 +20,7 @@ function getUrlText(req, res) {
     var 
     //targetPage = "http://en.wikipedia.org/wiki/Sahara";
     //targetPage = "http://www.mediawiki.org/w/index.php?title=Project:General_disclaimer&action=info";
-    targetPage = "/test.html";
+    targetPage = "test.html";
     var currentTag = "";
     var indenter = [];
     var alltext = "";
