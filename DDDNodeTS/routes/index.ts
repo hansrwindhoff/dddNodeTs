@@ -68,7 +68,7 @@ export function getUrlText(req: express.Request, res: express.Response) {
     });
 
     http.get(targetPage,
-        ((p: hp2.Parser) => (resi: any) => {
+        ((p: hp2.Parser) => (resi) => {
             resi.pipe(p);// stream to the html parser
         })(parser))
         .on("error", (err) => {
